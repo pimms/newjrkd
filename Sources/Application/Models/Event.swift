@@ -1,8 +1,8 @@
 import Foundation
 
 struct Event: Codable {
-    enum EventType {
-        case serverEvent
+    enum EventType: String, Codable {
+        case server
         case episode
     }
 
@@ -11,10 +11,10 @@ struct Event: Codable {
     let title: String
     let description: String?
 
-    init(type: EventType, title: String, desc: String? = nil) {
+    init(type: EventType, title: String, description: String? = nil) {
         self.type = type
         self.timestamp = Date()
         self.title = title
-        self.desc = desc
+        self.description = description
     }
 }
