@@ -1,7 +1,7 @@
 import XCTest
 @testable import Application
 
-final class EventLogRouteTests: XCTestCase {
+final class EventLogRouteTests: JRKTestCase {
     private let eventLog = EventLog()
     private let serverEvents = [
         Event(type: .server, title: "se 1", description: nil),
@@ -19,26 +19,12 @@ final class EventLogRouteTests: XCTestCase {
     }
 
     func testServerEventFiltering() {
-        let expect = expectation(description: "callback called")
         let route = EventLogRoute(eventLog: eventLog)
-        route.serverEventsHandler(completion: { events, error in
-            XCTAssertNil(error)
-            XCTAssertNotNil(events)
-            XCTAssertEqual(serverEvents, events!)
-            expect.fulfill()
-        })
-        waitForExpectations(timeout: 1.0)
+        assertRouteResponse(route.serverEventsHandler(completion:), toBe: serverEvents)
     }
 
     func testEpisodeEventFiltering() {
-        let expect = expectation(description: "callback called")
         let route = EventLogRoute(eventLog: eventLog)
-        route.episodeEventsHandler(completion: { events, error in
-            XCTAssertNil(error)
-            XCTAssertNotNil(events)
-            XCTAssertEqual(episodeEvents, events!)
-            expect.fulfill()
-        })
-        waitForExpectations(timeout: 1.0)
+        assertRouteResponse(route.episodeEventsHandler(completion:), toBe: episodeEvents)
     }
 }
