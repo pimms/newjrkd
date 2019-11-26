@@ -1,6 +1,6 @@
 import Foundation
 
-struct Event: Codable {
+struct Event: Codable, Equatable {
     enum EventType: String, Codable {
         case server
         case episode

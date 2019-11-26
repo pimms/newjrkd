@@ -2,11 +2,11 @@ import Kitura
 import Foundation
 
 public class App {
-    
+
     private let router = Router()
 
     private let routes: [Routable] = [
-        EventLogRoute()
+        EventLogRoute(eventLog: EventLog.default)
     ]
 
     public init() throws { }
